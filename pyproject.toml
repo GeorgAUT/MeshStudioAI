@@ -1,11 +1,11 @@
 [project]
-name = "g-adaptivity"
+name = "meshstudioai"
 version = "0.1.0"
-description = "Project for GNN-based optimal mesh relocation"
+description = "MeshStudioAI - A collection of AI tools for adaptive meshing in the context of finite element methods (FEM)"
 requires-python = ">=3.9,<3.14"
 authors = [
-  { name = "James Rowbottom", email = "jr908@cam.ac.uk" },
-  { name = "Georg Maierhofer", email = "gam37@cam.ac.uk" }
+  { name = "Georg Maierhofer", email = "gam37@cam.ac.uk" },
+  { name = "James Rowbottom", email = "jr908@cam.ac.uk" }
 ]
 dependencies = [
   "torch",

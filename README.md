@@ -117,6 +117,18 @@ python src/run_pipeline.py --exp_config configs/XXX.yaml \
   --local_model_path /path/to/model_best.pt
 ```
 
+## Documentation
+
+The documentation is built with MkDocs and lives in `docs/`.
+
+- Hosted docs (GitHub Pages): `https://<ORG>.github.io/<REPO>/`
+- Local preview:
+
+```bash
+pip install mkdocs-material
+mkdocs serve
+```
+
 ## Reproducibility
 
 `src/params.py` currently overrides the configured `seed` with a random seed at runtime. If you need deterministic runs, you will want to modify that behavior.
