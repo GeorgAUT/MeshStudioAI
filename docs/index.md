@@ -2,7 +2,7 @@
 
 MeshStudioAI is a collection of AI tools for adaptive meshing in the context of finite element methods (FEM). It builds on the official implementation of [G-Adaptivity](https://openreview.net/forum?id=pyIXyl4qFx): a GNN-based approach to adaptive mesh relocation for FEM.
 
-<video controls muted playsinline style="max-width: 100%; height: auto;">
+<video controls autoplay muted loop playsinline style="max-width: 100%; height: auto;">
   <source src="assets/videos/cylinder_g-adaptivity_flow+mesh.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>

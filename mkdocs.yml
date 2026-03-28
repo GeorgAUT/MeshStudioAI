@@ -30,3 +30,6 @@ nav:
       - Configuration: reference/configuration.md
       - Repository Layout: reference/repository-layout.md
   - Troubleshooting: troubleshooting.md
+
+extra_css:
+  - assets/stylesheets/extra.css
