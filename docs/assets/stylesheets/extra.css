@@ -8,6 +8,18 @@
 
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg {
-  height: 2.4rem;
-  width: auto;
+  height: 2.4rem !important;
+  width: auto !important;
+  max-height: none !important;
+}
+
+.md-header__button.md-logo {
+  width: auto !important;
+}
+
+.md-header-nav__button.md-logo img,
+.md-header-nav__button.md-logo svg {
+  height: 2.4rem !important;
+  width: auto !important;
+  max-height: none !important;
 }
