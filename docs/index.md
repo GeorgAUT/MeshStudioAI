@@ -4,22 +4,12 @@ MeshStudioAI is a collection of AI tools for adaptive meshing in the context of 
 
 ## What you can do
 
+- Use the pretrained G-Adaptivity framework on your own FEM problem
 - Train a mesh relocation model (typically `MeshAdaptor`)
 - Evaluate trained models on precomputed datasets
 - Plot qualitative and quantitative results
 - Log experiments to Weights & Biases (W&B)
 
-## Key entry points
-
-- `src/run_GNN.py`: training
-- `src/run_pipeline.py`: evaluation (and optional training wrapper)
-
 ## Quickstart
 
-1. Install and activate Firedrake.
-2. Download a dataset into `./data`.
-3. Run:
-
-```bash
-python src/run_pipeline.py --exp_config configs/poisson_square_mixed.yaml
-```
+To run your first mesh adaptivity example please see the [Installation guide](../getting-started/installation.md), and the [First demo notebook](../getting-started/navier-stokes-adaptivity.md)

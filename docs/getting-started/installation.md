@@ -13,7 +13,7 @@ https://www.firedrakeproject.org/install.html#installing-firedrake
 With the Firedrake environment activated:
 
 ```bash
-git clone <THIS_REPO_URL>
+git clone https://github.com/GeorgAUT/MeshStudioAI
 cd MeshStudioAI
 pip install -e .
 ```
