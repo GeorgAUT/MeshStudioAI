@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-MeshStudioAI depends on [Firedrake](https://www.firedrakeproject.org/).
+Please note MeshStudioAI currently requires Python 3.10-3.13 and [Firedrake](https://www.firedrakeproject.org/).
 
-Install Firedrake following the official [Firedrake installation guide](https://www.firedrakeproject.org/install.html#installing-firedrake) and activate the Firedrake virtual environment.
+Install Firedrake following the official [Firedrake installation guide](https://www.firedrakeproject.org/install.html#installing-firedrake) and activate the Firedrake virtual environment. Please be mindful to use Python 3.10-3.13 when installing Firedrake.
 
 ## Install MeshStudioAI
 
