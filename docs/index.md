@@ -18,3 +18,17 @@ MeshStudioAI is a collection of AI tools for adaptive meshing in the context of 
 ## Quickstart
 
 To run your first mesh adaptivity example please see the [Installation guide](getting-started/installation.md), and the [First demo notebook](getting-started/navier-stokes-adaptivity.md)
+
+
+## License and citation
+
+This open-source version of our code is licensed under Apache 2.0. If you use this work, please cite:
+
+```text
+@inproceedings{Rowbottom_G-Adaptivity_optimised_graph-based_2025,
+    author = {Rowbottom, James and Maierhofer, Georg and Deveney, Teo and Müller, Eike Hermann and Paganini, Alberto and Schratz, Katharina and Lio, Pietro and Schönlieb, Carola-Bibiane and Budd, Chris},
+    booktitle = {Proceedings of the Forty-second International Conference on Machine Learning},
+    title = {{G-Adaptivity: optimised graph-based mesh relocation for finite element methods}},
+    year = {2025}
+}
+```
