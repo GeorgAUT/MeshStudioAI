@@ -1,4 +1,6 @@
-# MeshStudioAI
+<p align="center">
+  <img src="docs/assets/images/logo.png" alt="MeshStudioAI" width="600" />
+</p>
 
 MeshStudioAI presents a collection of AI tools for adaptive meshing in the context of finite element methods (FEM). The repository builds on the G-Adaptivity approach taken in [G-Adaptivity: a GNN-based approach to adaptive mesh relocation for finite element methods (FEM)](https://openreview.net/forum?id=pyIXyl4qFx).
 
