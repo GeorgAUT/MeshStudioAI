@@ -1,12 +1,13 @@
 // -------------------------------
-// Channel with airfoil cutout (.geo)
-// Same outer rectangle as your file, but the circular cutout is replaced by an airfoil
+// Channel with NACA 4412 airfoil cutout (.geo)
+// Chord = 0.42 (3x bigger than 0.14), shifted 5% chord to the right
+// Fix: ensure the airfoil curve loop is truly closed by reusing TE/LE points
 // -------------------------------
 
 // far field resolution
 dx1 = 0.015;
 // resolution at airfoil
-dx2 = 0.015;
+dx2 = 0.010;
 
 // -------------------------------
 // Outer rectangle (channel)
@@ -21,100 +22,127 @@ Line(2) = {4, 2};  // right (outflow)
 Line(3) = {2, 1};  // bottom
 Line(4) = {1, 3};  // left (inflow)
 
-Line Loop(11) = {1, 2, 3, 4}; // outer boundary loop
+Line Loop(11) = {1, 2, 3, 4};
 
 // -------------------------------
-// Airfoil cutout: symmetric NACA 00xx (default: NACA 0012)
-// Placed where your cylinder was: center at (0.2, 0.2)
-// Chord chosen to match cylinder diameter (~0.1)
+// NACA 4412 parameters + placement
 // -------------------------------
-centerX = 0.2;
+// NACA 4412 => m=0.04, p=0.4, t=0.12
+centerX = 0.3;   // 0.2 + 0.05*c = 0.2 + 0.021
 centerY = 0.2;
 
-c     = 0.10;   // chord length
-t     = 0.12;   // thickness ratio (0.12 => NACA 0012)
-alpha = 0.0;    // angle of attack (radians). Example: 5 deg -> 5*Pi/180
+c     = 0.42;   // 3x larger chord
+t     = 0.12;
+m     = 0.04;
+p     = 0.40;
+alpha = 0.0;    // radians
 
-nPts = 60; // points per side (upper and lower). Increase for smoother airfoil.
+nPts = 120;     // points per side (increase if you want smoother)
 
-// arrays holding point tags
 upper[] = {};
 lower[] = {};
 
-// ---- upper surface points: from TE (x=c) to LE (x=0)
+// ---- build upper surface points from TE -> LE (includes both endpoints)
 For i In {0:nPts}
-  x = c * (nPts - i) / nPts; // goes c -> 0
-  xcLoc = x / c;
+  x  = c * (nPts - i) / nPts; // c -> 0
+  xc = x / c;
 
-  // NACA 00xx thickness distribution
-  yt = 5 * t * c * (0.2969*Sqrt(xcLoc)
-                  - 0.1260*xcLoc
-                  - 0.3516*xcLoc*xcLoc
-                  + 0.2843*xcLoc*xcLoc*xcLoc
-                  - 0.1015*xcLoc*xcLoc*xcLoc*xcLoc);
+  yt = 5 * t * c * (0.2969*Sqrt(xc)
+                  - 0.1260*xc
+                  - 0.3516*xc*xc
+                  + 0.2843*xc*xc*xc
+                  - 0.1015*xc*xc*xc*xc);
 
-  // shift so mid-chord is at (0,0) before rotation/translation
-  x0 = x - c/2;
-  y0 = yt;
+  If (xc < p)
+    yc    = m * c * ((2*p*xc) - xc*xc)/(p*p);
+    dycdx = 2*m*(p-xc)/(p*p);
+  Else
+    yc    = m * c * ((1-2*p) + 2*p*xc - xc*xc)/((1-p)*(1-p));
+    dycdx = 2*m*(p-xc)/((1-p)*(1-p));
+  EndIf
 
-  // rotate by alpha and translate to (centerX, centerY)
+  theta = Atan(dycdx);
+
+  xu = x - yt*Sin(theta);
+  yu = yc + yt*Cos(theta);
+
+  // shift to mid-chord at origin
+  x0 = xu - c/2;
+  y0 = yu;
+
+  // rotate + translate
   xr =  x0*Cos(alpha) - y0*Sin(alpha);
   yr =  x0*Sin(alpha) + y0*Cos(alpha);
 
-  p = newp;
-  Point(p) = {centerX + xr, centerY + yr, 0, dx2};
-  upper[] += {p};
+  pt = newp;
+  Point(pt) = {centerX + xr, centerY + yr, 0, dx2};
+  upper[] += {pt};
 EndFor
 
-// ---- lower surface points: from LE (x=0) back to TE (x=c)
-For i In {0:nPts}
-  x = c * i / nPts; // goes 0 -> c
-  xcLoc = x / c;
+// Grab the actual point tags for TE and LE from the upper list
+pTE = upper[0];        // first upper point = TE
+pLE = upper[#upper[]-1]; // last upper point  = LE
 
-  yt = 5 * t * c * (0.2969*Sqrt(xcLoc)
-                  - 0.1260*xcLoc
-                  - 0.3516*xcLoc*xcLoc
-                  + 0.2843*xcLoc*xcLoc*xcLoc
-                  - 0.1015*xcLoc*xcLoc*xcLoc*xcLoc);
+// ---- build lower surface points from LE -> TE
+// Reuse LE and TE point tags, and only create interior lower points
+lower[] += {pLE};
 
-  x0 = x - c/2;
-  y0 = -yt;
+For i In {1:nPts-1}
+  x  = c * i / nPts;  // (0,c) excluding endpoints
+  xc = x / c;
+
+  yt = 5 * t * c * (0.2969*Sqrt(xc)
+                  - 0.1260*xc
+                  - 0.3516*xc*xc
+                  + 0.2843*xc*xc*xc
+                  - 0.1015*xc*xc*xc*xc);
+
+  If (xc < p)
+    yc    = m * c * ((2*p*xc) - xc*xc)/(p*p);
+    dycdx = 2*m*(p-xc)/(p*p);
+  Else
+    yc    = m * c * ((1-2*p) + 2*p*xc - xc*xc)/((1-p)*(1-p));
+    dycdx = 2*m*(p-xc)/((1-p)*(1-p));
+  EndIf
+
+  theta = Atan(dycdx);
+
+  xl = x + yt*Sin(theta);
+  yl = yc - yt*Cos(theta);
+
+  x0 = xl - c/2;
+  y0 = yl;
 
   xr =  x0*Cos(alpha) - y0*Sin(alpha);
   yr =  x0*Sin(alpha) + y0*Cos(alpha);
 
-  p = newp;
-  Point(p) = {centerX + xr, centerY + yr, 0, dx2};
-  lower[] += {p};
+  pt = newp;
+  Point(pt) = {centerX + xr, centerY + yr, 0, dx2};
+  lower[] += {pt};
 EndFor
 
-// Splines to close the airfoil boundary
+lower[] += {pTE};
+
+// ---- splines and loop
 sUpper = newl;
-Spline(sUpper) = {upper[]};
+Spline(sUpper) = {upper[]};   // TE -> LE
 
 sLower = newl;
-Spline(sLower) = {lower[]};
+Spline(sLower) = {lower[]};   // LE -> TE
 
-// Airfoil loop (a closed cutout)
 Line Loop(12) = {sUpper, sLower};
 
 // -------------------------------
 // Fluid domain: rectangle with airfoil hole
+// (using -12 is fine too; keeping +12 works since loop is now correct)
 // -------------------------------
 Plane Surface(15) = {11, 12};
 
 // -------------------------------
-// Physical groups (same meaning as your original file)
+// Physical groups
 // -------------------------------
-
-// Top (Line 1) and bottom (Line 3)
-Physical Line(1) = {1, 3};
-// Inflow (left)
-Physical Line(2) = {4};
-// Outflow (right)
-Physical Line(3) = {2};
-// Airfoil boundary
-Physical Line(4) = {sUpper, sLower};
-
-// Whole domain ID
-Physical Surface(15) = {15};
+Physical Line(1) = {1, 3};            // top & bottom
+Physical Line(2) = {4};               // inflow
+Physical Line(3) = {2};               // outflow
+Physical Line(4) = {sUpper, sLower};  // airfoil boundary
+Physical Surface(15) = {15};          // fluid domain
