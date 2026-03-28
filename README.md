@@ -16,11 +16,10 @@ For detailed guides (including datasets, training, evaluation, and troubleshooti
 
 ## Installation
 
-This code depends on [Firedrake](https://www.firedrakeproject.org/), a Python-based finite element library used to solve the PDEs.
 
-We recommend installing Firedrake via the official guide, which also sets up a dedicated virtual environment:
+Please note MeshStudioAI currently requires Python 3.10-3.13 and [Firedrake](https://www.firedrakeproject.org/), a Python-based finite element library used to solve the PDEs.
 
-https://www.firedrakeproject.org/install.html#installing-firedrake
+We recommend installing Firedrake via the official [Firedrake installation guide](https://www.firedrakeproject.org/install.html#installing-firedrake), which also sets up a dedicated virtual environment. Please be mindful to use Python 3.10-3.13 when installing Firedrake.
 
 Once Firedrake is installed and its virtual environment is activated, install this repo and its Python dependencies:
 
