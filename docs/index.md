@@ -7,7 +7,9 @@ MeshStudioAI is a collection of AI tools for adaptive meshing in the context of 
   Your browser does not support the video tag.
 </video>
 
-## What you can do
+The full repository is available on [GitHub](https://github.com/georgaut/MeshStudioAI).
+
+## Functionality
 
 - Use the pretrained G-Adaptivity framework on your own FEM problem
 - Train a mesh relocation model (typically `MeshAdaptor`)
