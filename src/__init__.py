@@ -1,1 +1,1 @@
-"""G-Adaptivity main package."""
+"""MeshStudioAI package."""

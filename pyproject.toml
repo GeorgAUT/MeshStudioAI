@@ -2,7 +2,7 @@
 name = "meshstudioai"
 version = "0.1.0"
 description = "MeshStudioAI - A collection of AI tools for adaptive meshing in the context of finite element methods (FEM)"
-requires-python = ">=3.9,<3.14"
+requires-python = ">=3.10,<3.14"
 authors = [
   { name = "Georg Maierhofer", email = "gam37@cam.ac.uk" },
   { name = "James Rowbottom", email = "jr908@cam.ac.uk" }
@@ -31,4 +31,7 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["firedrake_difFEM", "navier_stokes_data", "classical_meshing"]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

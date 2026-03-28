@@ -1,1 +1,0 @@
-"""G-Adaptivity models package."""
