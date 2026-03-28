@@ -12,4 +12,4 @@ MeshStudioAI is a collection of AI tools for adaptive meshing in the context of 
 
 ## Quickstart
 
-To run your first mesh adaptivity example please see the [Installation guide](../getting-started/installation.md), and the [First demo notebook](../getting-started/navier-stokes-adaptivity.md)
+To run your first mesh adaptivity example please see the [Installation guide](getting-started/installation.md), and the [First demo notebook](getting-started/navier-stokes-adaptivity.md)
