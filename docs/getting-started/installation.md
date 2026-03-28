@@ -4,9 +4,7 @@
 
 MeshStudioAI depends on [Firedrake](https://www.firedrakeproject.org/).
 
-Install Firedrake following the official guide and activate the Firedrake virtual environment:
-
-https://www.firedrakeproject.org/install.html#installing-firedrake
+Install Firedrake following the official [Firedrake installation guide](https://www.firedrakeproject.org/install.html#installing-firedrake) and activate the Firedrake virtual environment.
 
 ## Install MeshStudioAI
 

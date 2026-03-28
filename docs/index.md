@@ -11,6 +11,8 @@ The full repository is available on [GitHub](https://github.com/georgaut/MeshStu
 
 ## Functionality
 
+With this package you can:
+
 - Use the pretrained G-Adaptivity framework on your own FEM problem
 - Train a mesh relocation model (typically `MeshAdaptor`)
 - Evaluate trained models on precomputed datasets
@@ -19,7 +21,7 @@ The full repository is available on [GitHub](https://github.com/georgaut/MeshStu
 
 ## Quickstart
 
-To run your first mesh adaptivity example please see the [Installation guide](getting-started/installation.md), and the [First demo notebook](getting-started/navier-stokes-adaptivity.md)
+To run your first mesh adaptivity example please see the [Installation guide](getting-started/installation.md), and the [First demo notebook](getting-started/navier-stokes-adaptivity.md).
 
 
 ## License and citation
