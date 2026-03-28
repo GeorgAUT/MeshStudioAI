@@ -16,13 +16,14 @@ nav:
   - Home: index.md
   - Getting Started:
       - Installation: getting-started/installation.md
-      - Datasets: getting-started/datasets.md
-      - First Run: getting-started/first-run.md
       - Navier–Stokes adaptivity: getting-started/navier-stokes-adaptivity.md
   - Guides:
       - Training: guides/training.md
       - Evaluation: guides/evaluation.md
       - W&B and Checkpoints: guides/wandb-and-checkpoints.md
+      - Advanced topics:
+          - Training datasets: guides/datasets.md
+          - First full training + evaluation: guides/first-run.md
   - Reference:
       - Configuration: reference/configuration.md
       - Repository Layout: reference/repository-layout.md

@@ -1,4 +1,6 @@
-# Datasets
+# Training datasets
+
+This page covers dataset management for training and evaluation runs.
 
 Generating datasets from scratch can be computationally expensive because it requires many FEM solves.
 
