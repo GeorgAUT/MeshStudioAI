@@ -13,6 +13,16 @@ This demo shows:
 
 ## Run
 
+### Notebook (recommended)
+
+Open the notebook:
+
+`examples/navier_stokes_adaptivity_demo.ipynb`
+
+Then run all cells in Jupyter/JupyterLab.
+
+### Script (alternative)
+
 From the repo root:
 
 ```bash
