@@ -1,7 +1,7 @@
 site_name: MeshStudioAI
 site_description: AI tools for adaptive meshing for finite element methods (FEM)
-repo_url: https://github.com/<ORG>/<REPO>
-repo_name: <ORG>/<REPO>
+repo_url: https://github.com/GeorgAUT/MeshStudioAI
+repo_name: GeorgAUT/MeshStudioAI
 
 theme:
   name: material
@@ -18,6 +18,8 @@ nav:
       - Installation: getting-started/installation.md
       - Datasets: getting-started/datasets.md
       - First Run: getting-started/first-run.md
+  - Demos:
+      - Navier–Stokes adaptivity: demos/navier-stokes-adaptivity.md
   - Guides:
       - Training: guides/training.md
       - Evaluation: guides/evaluation.md
@@ -26,4 +28,3 @@ nav:
       - Configuration: reference/configuration.md
       - Repository Layout: reference/repository-layout.md
   - Troubleshooting: troubleshooting.md
-  - Contributing: contributing.md
