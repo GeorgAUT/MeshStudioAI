@@ -21,14 +21,6 @@ Open the notebook:
 
 Then run all cells in Jupyter/JupyterLab.
 
-### Script (alternative)
-
-From the repo root:
-
-```bash
-python examples/navier_stokes_adaptivity_demo.py
-```
-
 ### Inputs
 
 The demo defaults to:
@@ -36,15 +28,6 @@ The demo defaults to:
 - Mesh: `meshes/cylinder_050.msh`
 - Weights: `pretrained/generic_model_weights.pt`
 - Model config: `examples/extensions_navier_stokes/pretrained/config.yaml`
-
-You can override these:
-
-```bash
-python examples/navier_stokes_adaptivity_demo.py \
-  --mesh meshes/cylinder_050.msh \
-  --weights pretrained/generic_model_weights.pt \
-  --model_config examples/extensions_navier_stokes/pretrained/config.yaml
-```
 
 ## Outputs
 
