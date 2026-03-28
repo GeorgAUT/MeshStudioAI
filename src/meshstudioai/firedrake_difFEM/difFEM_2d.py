@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from firedrake import TestFunction, TrialFunction, FunctionSpace, Function, DirichletBC, SpatialCoordinate, UnitSquareMesh
 from firedrake import inner, grad, dx, div, exp, triplot, tripcolor, solve, sqrt, assemble, tricontour
 from torchquad import Simpson,Trapezoid, Gaussian, set_up_backend, utils
-from firedrake_difFEM.solve_poisson import poisson2d_fmultigauss_bcs#, u_true_exact_2d
+from .solve_poisson import poisson2d_fmultigauss_bcs#, u_true_exact_2d
 from scipy import sparse
 
 

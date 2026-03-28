@@ -7,16 +7,16 @@ import torch.nn.functional as F
 from torch_geometric.loader import DataLoader
 import wandb
 
-from data import MeshInMemoryDataset
-from data_mixed import MeshInMemoryDataset_Mixed
-from data_mixed_loader import Mixed_DataLoader
-from utils_data import make_data_name
-from utils_main import plot_training_evol, inner_progress
-from utils_train import equidistribution_loss
-from models.mesh_adaptor_model import Mesh_Adaptor
-from models.UM2N_aux.um2n_loss import UM2N_loss
+from meshstudioai.data import MeshInMemoryDataset
+from meshstudioai.data_mixed import MeshInMemoryDataset_Mixed
+from meshstudioai.data_mixed_loader import Mixed_DataLoader
+from meshstudioai.utils_data import make_data_name
+from meshstudioai.utils_main import plot_training_evol, inner_progress
+from meshstudioai.utils_train import equidistribution_loss
+from meshstudioai.models.mesh_adaptor_model import Mesh_Adaptor
+from meshstudioai.models.UM2N_aux.um2n_loss import UM2N_loss
 
-from params import get_params, run_params, tf_sweep_args, set_seed, get_arg_list
+from meshstudioai.params import get_params, run_params, tf_sweep_args, set_seed, get_arg_list
 
 
 def get_data(opt, train_test="test"):

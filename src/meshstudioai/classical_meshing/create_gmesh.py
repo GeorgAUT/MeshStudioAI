@@ -1,7 +1,7 @@
 from firedrake import *
 from matplotlib import pyplot as plt
 
-from firedrake_difFEM.solve_poisson import poisson2d_fsin_b0, poisson2d_f0_bsin_polarL
+from ..firedrake_difFEM.solve_poisson import poisson2d_fsin_b0, poisson2d_f0_bsin_polarL
 
 def create_Testmesh(fname):
     # Nodes and elements data

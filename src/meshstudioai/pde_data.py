@@ -1,7 +1,7 @@
 import numpy as np
 from firedrake import *
 
-from navier_stokes_data.series_approximation import load_expansion
+from .navier_stokes_data.series_approximation import load_expansion
 
 
 def get_pde_params_sample(opt, dim, idx, num_data, num_gauss):

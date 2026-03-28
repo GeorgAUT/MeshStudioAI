@@ -4,7 +4,7 @@ from firedrake.adjoint import *
 from firedrake.ml.pytorch import from_torch, fem_operator
 from firedrake.__future__ import interpolate
 
-from pde_data import get_pde_params_sample, get_pde_data_sample
+from .pde_data import get_pde_params_sample, get_pde_data_sample
 
 
 def eval_firedrake_fct(uu, u_true, p=2):

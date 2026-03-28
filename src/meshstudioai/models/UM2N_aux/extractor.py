@@ -44,7 +44,7 @@ SOFTWARE."""
 import torch
 import torch.nn.functional as F
 from torch_geometric.nn import MessagePassing
-from models.UM2N_aux.transformer_model import TransformerModel
+from .transformer_model import TransformerModel
 
 __all__ = ["LocalFeatExtractor", "GlobalFeatExtractor"]
 

@@ -12,15 +12,15 @@ from firedrake.pyplot import tripcolor
 from firedrake import *
 from firedrake import UnitIntervalMesh, UnitSquareMesh, FunctionSpace, DirichletBC, CheckpointFile
 
-from classical_meshing.ma_mesh_1d import deform_mesh_mmpde1d
-from classical_meshing.ma_mesh_2d import deform_mesh_ma2d
-from classical_meshing.ma_mesh_3d import deform_mesh_ma3d
+from .classical_meshing.ma_mesh_1d import deform_mesh_mmpde1d
+from .classical_meshing.ma_mesh_2d import deform_mesh_ma2d
+from .classical_meshing.ma_mesh_3d import deform_mesh_ma3d
 
-from params import get_params, run_params
-from utils_data import make_data_name, to_float32, convert_to_boundary_mask, \
+from .params import get_params, run_params
+from .utils_data import make_data_name, to_float32, convert_to_boundary_mask, \
     map_firedrake_to_cannonical_ordering_2d, map_firedrake_to_cannonical_ordering_1d, \
     map_firedrake_to_cannonical_ordering_3d, save_function, load_function, load_vector_function
-from pde_solvers import get_solve_firedrake_class
+from .pde_solvers import get_solve_firedrake_class
 
 
 class PyG_Dataset(object):
