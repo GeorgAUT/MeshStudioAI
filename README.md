@@ -1,42 +1,57 @@
-# G-Adaptivity
+# MeshStudioAI
 
-This repository contains the official implementation of [G-Adaptivity](https://openreview.net/forum?id=pyIXyl4qFx): a GNN-based approach to adaptive mesh refinement for finite element methods (FEM).
+MeshStudioAI presents a collection of AI suites for adaptive meshing in the context of finite element methods (FEM). The repository builds on the official implementation of [G-Adaptivity](https://openreview.net/forum?id=pyIXyl4qFx): a GNN-based approach to adaptive mesh relocation for finite element methods (FEM).
 
-## 📦 Installation
+The main entry points are:
 
-Our code depends on [Firedrake](https://www.firedrakeproject.org/), a Python-based finite element library used to solve the PDEs in our experiments.
+- `src/run_GNN.py`: train a model (typically `MeshAdaptor`)
+- `src/run_pipeline.py`: evaluate a trained model (with optional plotting and W&B logging)
 
-We recommend installing Firedrake via the [official guide](https://www.firedrakeproject.org/install.html#installing-firedrake), which will also set up a dedicated virtual environment.
+## Quickstart
 
-Once Firedrake is installed and its virtual environment activated, you can install G-Adaptivity and its dependencies from our `pyproject.toml`:
+1. Install and activate a Firedrake environment (see Installation).
+2. Download the dataset (see Datasets) into `./data`.
+3. Run an experiment config:
 
 ```bash
-git clone https://github.com/JRowbottomGit/g-adaptivity.git
-cd g-adaptivity
+python src/run_pipeline.py --exp_config configs/poisson_square_mixed.yaml
+```
+
+## Installation
+
+This code depends on [Firedrake](https://www.firedrakeproject.org/), a Python-based finite element library used to solve the PDEs.
+
+We recommend installing Firedrake via the official guide, which also sets up a dedicated virtual environment:
+
+https://www.firedrakeproject.org/install.html#installing-firedrake
+
+Once Firedrake is installed and its virtual environment is activated, install this repo and its Python dependencies:
+
+```bash
+git clone <THIS_REPO_URL>
+cd MeshStudioAI
 pip install -e .
 ```
 
-Once installed in your virtual environment, this will allow you to import g-adaptivity to work with your own code and products, as well as run our training and evaluation scripts.
+## Datasets
 
-## 📁 Datasets
+The code can generate training/test datasets directly, but this is computationally expensive due to the number of FEM solves.
 
-The code can generate training and test datasets directly, but this is computationally expensive due to the large number of FEM solves involved.
+Precomputed datasets are available via Zenodo:
 
-To save time, we provide precomputed datasets via Zenodo:  
-🔗 [https://zenodo.org/records/15800768](https://zenodo.org/records/15800768)
+https://zenodo.org/records/15800768
 
 After downloading, place the datasets in the `data/` folder at the repository root:
 
-```
-g-adaptivity/
+```text
+MeshStudioAI/
 └── data/
     └── <your_downloaded_data_here>
 ```
 
-⚠️ The `data/` folder may not exist until you create it manually or run a script that uses it.
+The `data/` folder may not exist until you create it manually or run a script that uses it.
 
-
-## 🚀 Training and Evaluation
+## Training and evaluation
 
 To train and evaluate models from the paper, run:
 
@@ -44,39 +59,86 @@ To train and evaluate models from the paper, run:
 python src/run_pipeline.py --exp_config configs/XXX.yaml
 ```
 
-where the folder `configs/` contains a number of configuration files that specify examples shown in the main paper. The simplest example is `configs/poisson_square_mixed.yaml`, which trains a model on the Poisson equation with a square mesh and mixed data types.
+The folder `configs/` contains experiment configs used in the paper. A simple starting point is `configs/poisson_square_mixed.yaml`.
 
-## 🛠️ Config file structure
+If you only want to train (without the evaluation wrapper), run:
 
-The configuration files in `configs/` contain the `base_config.yaml` which contain a larger number of standardised parameter settings (e.g. training and model parameters) together with the experiment config files (e.g. `poisson_square_mixed.yaml`). Any parameter set in an experiment config file will overwrite the base_config setting of the corresponding parameter. Thus as a starting point we suggest users to work with variations on the experiment config files before diving deeper into the code and modifying any base configs.
+```bash
+python src/run_GNN.py --exp_config configs/XXX.yaml
+```
 
-The major components of the experiment config files are as follows:
+## Configuration
+
+The configuration system composes:
+
+- `configs/base_config.yaml`: shared defaults
+- `configs/<experiment>.yaml`: experiment overrides
+
+Any parameter set in an experiment config file overwrites the corresponding value in `base_config.yaml`.
+
+Example structure:
 
 ```yaml
-# Example configuration file for G-Adaptivity
 run:
   pde_type: "Poisson"  # 'Poisson', 'Burgers', 'NavierStokes'
   data_type: "randg_mix"  # 'randg', 'randg_mix', 'RBF'
-  model: "MeshAdaptor"  # 'MeshAdapter', 'backFEM2D'
+  model: "MeshAdaptor"  # 'MeshAdaptor', 'backFEM_2D'
 
 data:
-  mesh_geometry: "rectangle" # 'polygon_010', 'rectangle', 'cylinder100', 'cylinder015', 'cylinder010', 'H-shape', 'headland1', 'headland2', 'headland05' or 'L-shape'
+  mesh_geometry: "rectangle"
   mesh_dims_train: [[15, 15], [20, 20]]
   mesh_dims_test: [[12, 12], [14, 14], [16, 16], [18, 18], [20, 20], [22, 22]]
 ```
 
-Note that you can also work with your own mesh. For this you need to place your custom `.mesh` file in the `meshes/` folder and specify the filename (no `.mesh` ending) as the `mesh_geometry` parameter.
+You can also work with your own mesh by placing a custom `.mesh` file in `meshes/` and setting `mesh_geometry` to the filename (without the `.mesh` suffix).
 
-## ⚠️ Known issues
+## W&B logging and loading models
 
-- Anaconda is known to cause issues when installing firedrake on MacOS, we recommend using homebrew where possible and consulting the [Firedrake installation guide](https://www.firedrakeproject.org/install.html) as well as their [GitHub page](https://github.com/firedrakeproject/firedrake/issues) for more information and installation support.
+This project supports logging to Weights & Biases (W&B).
 
+- To log a run, pass `--wandb` (and optionally `--wandb_entity`, `--wandb_project`, `--wandb_group`).
+- To run W&B offline, pass `--wandb_offline`.
 
-## 📄 License and citation
+`src/run_pipeline.py` can also load a trained model:
 
-This open-source version of our code is licensed under Apache 2.0 - if you are interested in a commercial license with support/customization, please do contact us. If you use this work, please cite:
+- From W&B:
 
+```bash
+python src/run_pipeline.py --exp_config configs/XXX.yaml \
+  --wandb_load_model wandb \
+  --wandb_model_path <entity>/<project>/<run_id>
 ```
+
+- From a local checkpoint:
+
+```bash
+python src/run_pipeline.py --exp_config configs/XXX.yaml \
+  --wandb_load_model local \
+  --local_model_path /path/to/model_best.pt
+```
+
+## Reproducibility
+
+`src/params.py` currently overrides the configured `seed` with a random seed at runtime. If you need deterministic runs, you will want to modify that behavior.
+
+## Repository layout
+
+- `src/run_GNN.py`: training loop (PyTorch + PyTorch Geometric)
+- `src/run_pipeline.py`: evaluation + plotting + W&B integration
+- `src/pde_solvers.py`: Firedrake PDE solvers used to generate data / compute losses
+- `src/data.py`, `src/data_mixed.py`: dataset definitions
+- `src/models/`: GNN mesh adaptor model(s) and baselines
+- `configs/`: experiment configurations
+
+## Known issues
+
+- Anaconda is known to cause issues when installing Firedrake on macOS. Homebrew is recommended where possible. See the Firedrake installation guide and Firedrake issue tracker for help.
+
+## License and citation
+
+This open-source version of our code is licensed under Apache 2.0. If you use this work, please cite:
+
+```text
 @inproceedings{Rowbottom_G-Adaptivity_optimised_graph-based_2025,
     author = {Rowbottom, James and Maierhofer, Georg and Deveney, Teo and Müller, Eike Hermann and Paganini, Alberto and Schratz, Katharina and Lio, Pietro and Schönlieb, Carola-Bibiane and Budd, Chris},
     booktitle = {Proceedings of the Forty-second International Conference on Machine Learning},
