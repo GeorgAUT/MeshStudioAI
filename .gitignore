@@ -1,2 +1,7 @@
 /data/
 /src/wandb/
+
+
+# Mac #
+#######
+.DS_Store
