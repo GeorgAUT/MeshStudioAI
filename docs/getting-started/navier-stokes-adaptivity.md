@@ -8,16 +8,14 @@ This demo shows:
 
 ## Governing equations
 
-We consider the **incompressible Navier–Stokes equations** for velocity $\mathbf{u}(\mathbf{x}, t)$ and pressure $p(\mathbf{x}, t)$:
+We consider the **incompressible Navier–Stokes equations** for velocity `u(x, t)` and pressure `p(x, t)`:
 
-```math
-\begin{aligned}
-\frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u}\cdot\nabla)\mathbf{u} - \nu\,\Delta \mathbf{u} + \nabla p &= \mathbf{f} \quad \text{in } \Omega,\\
-\nabla\cdot\mathbf{u} &= 0 \quad \text{in } \Omega.
-\end{aligned}
+```text
+∂u/∂t + (u · ∇)u - ν Δu + ∇p = f   in Ω
+∇ · u = 0                         in Ω
 ```
 
-with viscosity $\nu>0$, forcing $\mathbf{f}$, an initial condition $\mathbf{u}(\mathbf{x},0)=\mathbf{u}_0(\mathbf{x})$, and appropriate boundary conditions on $\partial\Omega$ (e.g. inflow/outflow and no-slip on obstacles).
+with viscosity `ν > 0`, forcing `f`, an initial condition `u(x, 0) = u0(x)`, and appropriate boundary conditions on `∂Ω` (e.g. inflow/outflow and no-slip on obstacles).
 
 ## Prerequisites
 
